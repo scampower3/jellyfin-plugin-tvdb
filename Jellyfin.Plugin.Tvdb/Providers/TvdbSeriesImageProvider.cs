@@ -5,15 +5,16 @@ using System.Linq;
 using System.Net.Http;
 using System.Threading;
 using System.Threading.Tasks;
+
 using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Providers;
+using MediaBrowser.Model.Dto;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
+
 using Microsoft.Extensions.Logging;
-using Tvdb.Sdk;
-using RatingType = MediaBrowser.Model.Dto.RatingType;
-using Series = MediaBrowser.Controller.Entities.TV.Series;
 
 namespace Jellyfin.Plugin.Tvdb.Providers
 {
@@ -69,8 +70,8 @@ namespace Jellyfin.Plugin.Tvdb.Providers
             var tvdbId = Convert.ToInt32(item.GetProviderId(TvdbPlugin.ProviderId), CultureInfo.InvariantCulture);
             var seriesInfo = await _tvdbClientManager.GetSeriesImagesAsync(tvdbId, language, cancellationToken).ConfigureAwait(false);
             var seriesImages = seriesInfo.Artworks;
-            var languages = _tvdbClientManager.GetLanguagesAsync(CancellationToken.None).Result;
-            var artworkTypes = _tvdbClientManager.GetArtworkTypeAsync(CancellationToken.None).Result;
+            var languages = await _tvdbClientManager.GetLanguagesAsync(cancellationToken).ConfigureAwait(false);
+            var artworkTypes = await _tvdbClientManager.GetArtworkTypeAsync(cancellationToken).ConfigureAwait(false);
             foreach (var image in seriesImages)
             {
                 ImageType type;

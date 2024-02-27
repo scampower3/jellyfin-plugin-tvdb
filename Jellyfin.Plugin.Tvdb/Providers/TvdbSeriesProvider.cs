@@ -7,15 +7,20 @@ using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading;
 using System.Threading.Tasks;
+
+using Jellyfin.Data.Enums;
+
 using MediaBrowser.Common.Net;
 using MediaBrowser.Controller.Entities;
+using MediaBrowser.Controller.Entities.TV;
 using MediaBrowser.Controller.Library;
 using MediaBrowser.Controller.Providers;
 using MediaBrowser.Model.Entities;
 using MediaBrowser.Model.Providers;
+
 using Microsoft.Extensions.Logging;
+
 using Tvdb.Sdk;
-using Series = MediaBrowser.Controller.Entities.TV.Series;
 
 namespace Jellyfin.Plugin.Tvdb.Providers
 {
@@ -422,7 +427,7 @@ namespace Jellyfin.Plugin.Tvdb.Providers
             {
                 var personInfo = new PersonInfo
                 {
-                    Type = PersonType.Actor,
+                    Type = PersonKind.Actor,
                     Name = (actor.PersonName ?? string.Empty).Trim(),
                     Role = actor.Name
                 };
