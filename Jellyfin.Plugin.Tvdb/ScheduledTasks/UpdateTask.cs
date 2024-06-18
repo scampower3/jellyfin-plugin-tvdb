@@ -49,7 +49,7 @@ namespace Jellyfin.Plugin.Tvdb.ScheduledTasks
         }
 
         /// <inheritdoc/>
-        public string Name => "Check for metadata updates.";
+        public string Name => "Check for recent metadata updates.";
 
         /// <inheritdoc/>
         public string Key => "CheckForMetadataUpdatesTask";
